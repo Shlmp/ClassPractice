@@ -5,12 +5,49 @@
 
 using namespace std;
 
+void vectorsPart1();
+void vectorReserve();
+
 int main()
 {
+    const int NUM_SCORES = 4;
+    int score;
+
+    vector<int>::const_iterator iter;
+
+    vector<int> scores;
+
+    for (int i = 0; i < NUM_SCORES; i++)
+    {
+        cout << "Score " << i + 1 << endl;
+        cin >> score;
+        scores.push_back(score);
+    }
+
+    for (iter = scores.begin(); iter != scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+}
+
+void vectorReserve()
+{
+    vector<int> scores(10, 0);
+    cout << "Vector size is: " << scores.size() << endl;
+    cout << "Vector capacity is: " << scores.capacity() << endl;
+
+    scores.reserve(11);
+
+    cout << "Vector size is: " << scores.size() << endl;
+    cout << "Vector capacity is: " << scores.capacity() << endl;
+}
+
+void vectorsPart1()
+{
     //vector<string> myStuff = { "sword", "hammer", "bomb" };
-    //vector<string> inventory(10);
-    //vector<string> inventory(10, "  -  ");
-    //vector<string> inventory(myStuff);
+//vector<string> inventory(10);
+//vector<string> inventory(10, "  -  ");
+//vector<string> inventory(myStuff);
 
     vector<string> inventory;
     vector<string> playerInv(5);
@@ -19,7 +56,7 @@ int main()
     inventory.push_back("Sword");
     inventory.push_back("Hammer");
     inventory.push_back("Shield");
-     
+
     cout << "You have " << inventory.size() << " items in your inventory" << endl;
 
     //Iteration FOR
