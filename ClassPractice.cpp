@@ -9,9 +9,51 @@ using namespace std;
 
 void vectorsPart1();
 void vectorReserve();
+void vectorIter();
 
 
 int main()
+{
+    string guesses = "nightmare";
+    string guess2 = "";
+    char playerGuess[11] = "";
+    int lives = 5;
+
+
+    cout << "The word is: " << guesses << endl;
+    guess2 = guesses;
+    random_shuffle(guesses.begin(), guesses.end());
+    cout << " This are your mixed letters: " << guesses << "        Lives: " << lives << endl << endl;
+    cout << "Now guess" << endl;
+    
+    do
+    {
+        cin >> playerGuess;
+
+        if (playerGuess != guess2 && lives > 0)
+        {
+            cout << endl << "You guessed wrong" << endl;
+            lives--;
+            cout << "Guess again           Lives: " << lives << endl;
+            if (lives < 2 && lives == 1)
+            {
+                cout << "This is your last try" << endl;
+            }
+            if (lives < 1)
+            {
+                cout << "You lose";
+            }
+        }
+        else
+        {
+            cout << "You win";
+            return 0;
+        }
+    } while (lives > 0);
+}
+
+
+void vectorIter()
 {
     const int NUM_SCORES = 4;
     int score;
@@ -79,8 +121,6 @@ int main()
     random_shuffle(word.begin(), word.end());
     cout << word << endl;
 }
-
-
 
 void vectorReserve()
 {
