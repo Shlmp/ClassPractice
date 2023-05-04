@@ -1,12 +1,15 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstdlib>
 
 
 using namespace std;
 
 void vectorsPart1();
 void vectorReserve();
+
 
 int main()
 {
@@ -24,11 +27,60 @@ int main()
         scores.push_back(score);
     }
 
+    cout << endl << "  Scores" << endl;
     for (iter = scores.begin(); iter != scores.end(); iter++)
     {
         cout << *iter << endl;
     }
+
+    /*Find*/
+    cout << "\nLets find out if your score is in the vector!! Whats your score?" << endl;
+    cin >> score;
+
+    iter = find(scores.begin(), scores.end(), score);
+
+    if (iter != scores.end())
+    {
+        cout << endl << "Your score is in the vector\n";
+    }
+    else
+    {
+        cout << endl << "Your score does not exist here\n";
+    }
+
+    /*Random Shuffle*/
+    srand(time(NULL));
+    random_shuffle(scores.begin(), scores.end());
+    cout << "\n Mixed Scores" << endl;
+    for (iter = scores.begin(); iter != scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    /*Sort*/
+    cout << "\nLets change the order!" << endl;
+    sort(scores.begin(), scores.end());
+    for (iter = scores.begin(); iter != scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    /*Sort Greater*/
+    cout << "\nLets change the order again but backwards!" << endl;
+    sort(scores.begin(), scores.end(), greater<int>());
+    for (iter = scores.begin(); iter != scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+
+    string word = "Random";
+    cout << endl << word << endl;
+    random_shuffle(word.begin(), word.end());
+    cout << word << endl;
 }
+
+
 
 void vectorReserve()
 {
