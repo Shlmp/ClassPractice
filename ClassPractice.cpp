@@ -11,9 +11,63 @@ void vectorsPart1();
 void vectorReserve();
 void vectorIter();
 void guessWord();
+void iterInventory();
 
 
 int main()
+{
+    const int MAX_ATTEMPTS = 3;
+    int attempts = 0;
+
+    vector<string> words;
+    words.push_back("COMPUTER");
+    words.push_back("GAME");
+    words.push_back("CODE");
+    words.push_back("REFRIGERATOR");
+
+    srand(time(NULL));
+    int randomNumber = rand();
+    int wordsRandomIndex = (randomNumber % words.size());
+    string wordSelected = words[wordsRandomIndex];
+
+    //cout << wordSelected << endl;
+
+    random_shuffle(wordSelected.begin(), wordSelected.end());
+    cout << wordSelected << endl;
+
+    string correctWord;
+
+    do
+    {
+        cin >> correctWord;
+        transform(correctWord.begin(), correctWord.end(), correctWord.begin(), ::toupper);
+        //cout << correctWord << endl;
+
+        if (correctWord == words[wordsRandomIndex])
+        {
+            cout << "You guessed right!!" << endl;
+            break;
+        }
+        else
+        {
+            attempts++;
+            cout << "You failed... really?\nNow you only have " << MAX_ATTEMPTS - attempts << " attempts, Congratz" << endl;
+        }
+    } while (attempts != MAX_ATTEMPTS);
+
+    if (attempts == MAX_ATTEMPTS)
+    {
+        cout << endl << "You lost a simple guessing game, congratz. Your better off graduating life" << endl << "BTW the word was: ";
+        cout << words[wordsRandomIndex];
+    }
+    else
+    {
+        cout << endl << "yay! You got it!! And in " << attempts + 1 << " attempts no less";
+    }
+}
+
+
+void iterInventory()
 {
     vector<string> inventory;
     inventory.push_back("Sword");
@@ -63,7 +117,6 @@ int main()
         cout << *iter << endl;
     }
 }
-
 
 void guessWord()
 {
