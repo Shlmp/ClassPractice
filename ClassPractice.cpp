@@ -10,9 +10,62 @@ using namespace std;
 void vectorsPart1();
 void vectorReserve();
 void vectorIter();
+void guessWord();
 
 
 int main()
+{
+    vector<string> inventory;
+    inventory.push_back("Sword");
+    inventory.push_back("Shield");
+    inventory.push_back("Hammer");
+    inventory.push_back("Rifle");
+
+    vector<string>::iterator myIterator;
+    vector<string>::const_iterator iter;
+
+    cout << "Your items:\n";
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    //Exchange
+    cout << "\n Your " << inventory[2] << " was traded for a bow";
+    myIterator = inventory.begin() + 2;
+    *myIterator = "Bow";
+    cout << "\nYour items:\n";
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    //Size
+    cout << "\n The name of the item " << *myIterator << " has ";
+    cout << (*myIterator).size() << " letters";
+
+    cout << "\n The name of the item " << *myIterator << " has "; //Another way of coding for iter
+    cout << (myIterator)->size() << " letters";
+
+    //Insert
+    cout << "\n\nCongratulations! You retrieved your stolen bomb!!\n";
+    inventory.insert(inventory.begin() + 4, "Bomb");
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    //Delete
+    cout << "\nYour " << inventory[1] << " has been destroyed by an enemy!!!\n";
+    inventory.erase(inventory.begin() + 1);
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+}
+
+
+void guessWord()
 {
     string guesses = "nightmare";
     string guess2 = "";
@@ -25,7 +78,7 @@ int main()
     random_shuffle(guesses.begin(), guesses.end());
     cout << " This are your mixed letters: " << guesses << "        Lives: " << lives << endl << endl;
     cout << "Now guess" << endl;
-    
+
     do
     {
         cin >> playerGuess;
@@ -47,11 +100,10 @@ int main()
         else
         {
             cout << "You win";
-            return 0;
+            return;
         }
     } while (lives > 0);
 }
-
 
 void vectorIter()
 {
