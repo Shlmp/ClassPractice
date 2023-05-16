@@ -12,9 +12,48 @@ void vectorReserve();
 void vectorIter();
 void guessWord();
 void iterInventory();
+void guessWordTeacher();
 
+
+void badSwap(int x, int y);
+void goodSwap(int& x, int& y);
 
 int main()
+{
+    int firstScore = 10;
+    int secondScore = 100;
+    int temporalScore = 0;
+
+    cout << "First Score: " << firstScore << endl << "Second Score: " << secondScore << endl;
+
+    //BAD SWAP
+    badSwap(firstScore, secondScore);
+
+    cout << endl << "CHANGE" << endl << endl;
+    cout << "First Score: " << firstScore << endl << "Second Score: " << secondScore;
+
+    //GOOD SWAP
+    goodSwap(firstScore, secondScore);
+
+    cout << endl << endl << "CHANGE" << endl << endl;
+    cout << "First Score: " << firstScore << endl << "Second Score: " << secondScore;
+}
+
+void badSwap(int x, int y)
+{
+    int aux = x;
+    x = y;
+    y = aux;
+}
+
+void goodSwap(int& x, int& y)
+{
+    int aux = x;
+    x = y;
+    y = aux;
+}
+
+void guessWordTeacher()
 {
     const int MAX_ATTEMPTS = 3;
     int attempts = 0;
@@ -65,7 +104,6 @@ int main()
         cout << endl << "yay! You got it!! And in " << attempts + 1 << " attempts no less";
     }
 }
-
 
 void iterInventory()
 {
