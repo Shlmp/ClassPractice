@@ -14,12 +14,58 @@ void guessWord();
 void iterInventory();
 void guessWordTeacher();
 
-
+//References
 void badSwap(int x, int y);
 void goodSwap(int& x, int& y);
 
+void display(const vector<string>& vec);
+
 int main()
 {
+    const int ROWS = 5;
+    const int COLUMNS = 5;
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLUMNS; j++)
+        {
+            if (i == 0 || i == (ROWS - 1) || j == 0 || j == (COLUMNS - 1))
+            {
+                cout << 1 << " ";
+            }
+            else
+            {
+                cout << 0 << " ";
+            }
+        }
+        cout << endl;
+    }
+}
+
+void inventoryDisplay()
+{
+    vector<string> inventory;
+
+    inventory.push_back("Sword");
+    inventory.push_back("Armor");
+    inventory.push_back("Gun");
+
+    cout << "Your inventory is" << endl;
+    display(inventory);
+}
+
+void display(const vector<string>& vec)
+{
+    vector<string>::const_iterator iter;
+
+    for (iter = vec.begin(); iter != vec.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+}
+
+//Swap references
+void swap()
+    {
     int firstScore = 10;
     int secondScore = 100;
     int temporalScore = 0;
@@ -37,7 +83,7 @@ int main()
 
     cout << endl << endl << "CHANGE" << endl << endl;
     cout << "First Score: " << firstScore << endl << "Second Score: " << secondScore;
-}
+    }
 
 void badSwap(int x, int y)
 {
