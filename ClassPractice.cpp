@@ -13,8 +13,11 @@ void vectorIter();
 void guessWord();
 void iterInventory();
 void guessWordTeacher();
+void MatrixBox();
+void inventoryDisplay();
 
 //References
+void swap();
 void badSwap(int x, int y);
 void goodSwap(int& x, int& y);
 
@@ -22,19 +25,24 @@ void display(const vector<string>& vec);
 
 int main()
 {
-    const int ROWS = 5;
-    const int COLUMNS = 5;
-    for (int i = 0; i < ROWS; i++)
+
+}
+
+void MatrixBox()
+{
+    const int HEIGHT_WITH = 80;
+    for (int i = 0; i < HEIGHT_WITH; i++)
     {
-        for (int j = 0; j < COLUMNS; j++)
+        for (int j = 0; j < HEIGHT_WITH; j++)
         {
-            if (i == 0 || i == (ROWS - 1) || j == 0 || j == (COLUMNS - 1))
+            int Sumij = i + j;
+            if (i == 0 || j == 0 || i == HEIGHT_WITH - 1 || j == HEIGHT_WITH - 1 || i == j || Sumij == HEIGHT_WITH - 1)
             {
-                cout << 1 << " ";
+                cout << " 1 ";
             }
             else
             {
-                cout << 0 << " ";
+                cout << " . ";
             }
         }
         cout << endl;
