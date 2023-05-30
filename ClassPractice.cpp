@@ -3,9 +3,12 @@
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
+#include <clocale>
 
 
 using namespace std;
+
+int askNumber(string question, int high, int low = 1);
 
 void vectorsPart1();
 void vectorReserve();
@@ -23,7 +26,121 @@ void goodSwap(int& x, int& y);
 
 void display(const vector<string>& vec);
 
+//Exam2
+string GetRandomItem(vector<string>& items);
+void DisplayInventory(vector<string>& inventory);
+bool AskYesNo(string question);
+void ShowMenu();
+
+//only constants are global
+const int MAX_ITEMS = 6;
+const int SPACE_COST = 6;
+const int FREE_ITEMS = 3;
+
 int main()
+{
+    std::setlocale(LC_ALL, "es_ES.UTF-8");
+    unsigned int gems = 8;
+
+    //Items
+    vector<string> items = { "Sword", "Hammer", "Bomb", "Shield" };
+
+    //Inventory
+    vector<string> inventory;
+    inventory.reserve(MAX_ITEMS);
+    vector<string> ::const_iterator iter;
+    bool isContinue;
+
+    do
+    {
+        system("cls");
+        cout << "\n--- INVENTORY ---\n";
+        cout << "Gems: " << gems << endl;
+
+        //random_shuffle(items.begin(), items.end());
+        string itemFound = GetRandomItem(items);
+
+        cout << "You found a " << itemFound << "!!\n";
+        if (inventory.size() >= FREE_ITEMS)
+        {
+            ShowMenu();
+            int option = askNumber("\nChoose a number between: ", 3);
+
+            switch (option)
+            {
+            case 1:
+                //ReplaceItem
+                break;
+            case 2:
+                //BuySpace
+                break;
+            case 3:
+                break;
+            default:
+                break;
+            }
+        }
+        else
+        {
+            inventory.push_back(itemFound);
+        }
+
+        //DisplayItems
+        DisplayInventory(inventory);
+
+        isContinue = AskYesNo("Continue exploring?");
+    } while (isContinue);
+    system("cls");
+    cout << "\nbye\n";
+}
+
+string GetRandomItem(vector<string>& items)
+{
+    srand(time(NULL));
+    int itemRandomIndex = (rand() % items.size());
+    string itemSelected = items[itemRandomIndex];
+
+    return itemSelected;
+}
+
+void DisplayInventory(vector<string>& inventory)
+{
+    vector<string> ::const_iterator iter;
+    int i = 0;
+    
+    cout << "\n--- Your Items---\n";
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << i << " - "  << *iter << endl;
+        i++;
+    }
+}
+
+bool AskYesNo(string question)
+{
+    char answer;
+
+    do
+    {
+        cout << "\n" << question << "(y/n)\n";
+        cin >> answer;
+    } while (answer != 'y' && answer != 'n');
+    if (answer == 'y')
+    {
+        return true;
+    }
+    return false;
+}
+
+void ShowMenu()
+{
+    cout << "\n      Oh noes!!\nYour inventory is full!!!\nWhat would you like to do?\n";
+    cout << "1 - Replace object\n";
+    cout << "2 - Leave behind new object\n";
+    cout << "3 - Buy new slot for " << SPACE_COST << " gems\n";
+}
+
+void TicTacToe()
 {
     const int ROWS = 3;
     const int COLUMNS = 3;
@@ -433,4 +550,14 @@ void vectorsPart1()
     {
         cout << playerInv[i] << endl;
     }
+}
+
+int askNumber(string question, int high, int low)
+{
+    int number = 0;
+    do {
+        cout << question << "entre " << low << " y " << high << endl;
+        cin >> number;
+    } while (number > high || number < low);
+    return number;
 }
