@@ -31,6 +31,8 @@ string GetRandomItem(vector<string>& items);
 void DisplayInventory(vector<string>& inventory);
 bool AskYesNo(string question);
 void ShowMenu();
+void ReplaceItem(int& replace);
+void BuySpace(unsigned int& gems, vector<string>& inventoryBought, string& itemReplace);
 
 //only constants are global
 const int MAX_ITEMS = 6;
@@ -50,6 +52,7 @@ int main()
     inventory.reserve(MAX_ITEMS);
     vector<string> ::const_iterator iter;
     bool isContinue;
+    int replace = 0;
 
     do
     {
@@ -69,12 +72,18 @@ int main()
             switch (option)
             {
             case 1:
-                //ReplaceItem
+                system("cls");
+                cout << "What item dou you want to replace?\n";
+                DisplayInventory(inventory);
+                ReplaceItem(replace);
+                inventory[replace] = itemFound;
                 break;
             case 2:
-                //BuySpace
                 break;
             case 3:
+                system("cls");
+                DisplayInventory(inventory);
+                BuySpace(gems, inventory, itemFound);
                 break;
             default:
                 break;
@@ -92,6 +101,28 @@ int main()
     } while (isContinue);
     system("cls");
     cout << "\nbye\n";
+}
+
+void ReplaceItem(int& replace)
+{
+    cin >> replace;
+    cout << "\n--- NEW INVENTORY ---\n";
+}
+
+void BuySpace(unsigned int& gems, vector<string>& inventoryBought, string& itemReplace)
+{
+    cout << "A new slot costs " << SPACE_COST << " gems!\n";
+    if (gems > SPACE_COST)
+    {
+        AskYesNo("You can buy a new slot!!\n Do you wish to do so?\n");
+        gems = gems - SPACE_COST;
+        cout << "Congratulations, you bought a new slot!\n";
+        inventoryBought.push_back(itemReplace);
+    }
+    else
+    {
+        cout << "You do not have enough for a new slot\n";
+    }
 }
 
 string GetRandomItem(vector<string>& items)
@@ -134,7 +165,7 @@ bool AskYesNo(string question)
 
 void ShowMenu()
 {
-    cout << "\n      Oh noes!!\nYour inventory is full!!!\nWhat would you like to do?\n";
+    cout << "\n      Oh no!!\nYour inventory is full!!!\nWhat would you like to do?\n";
     cout << "1 - Replace object\n";
     cout << "2 - Leave behind new object\n";
     cout << "3 - Buy new slot for " << SPACE_COST << " gems\n";
@@ -556,7 +587,7 @@ int askNumber(string question, int high, int low)
 {
     int number = 0;
     do {
-        cout << question << "entre " << low << " y " << high << endl;
+        cout << question << low << " & " << high << endl;
         cin >> number;
     } while (number > high || number < low);
     return number;
