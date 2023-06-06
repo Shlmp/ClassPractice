@@ -31,7 +31,7 @@ string GetRandomItem(vector<string>& items);
 void DisplayInventory(vector<string>& inventory);
 bool AskYesNo(string question);
 void ShowMenu();
-void ReplaceItem(int& replace);
+void ReplaceItem(vector<string>& inventory, string itemFound);
 void BuySpace(unsigned int& gems, vector<string>& inventoryBought, string& itemReplace);
 
 //only constants are global
@@ -72,11 +72,15 @@ int main()
             switch (option)
             {
             case 1:
+                /***
                 system("cls");
-                cout << "What item dou you want to replace?\n";
+                cout << "What item do you want to replace?\n";
                 DisplayInventory(inventory);
                 ReplaceItem(replace);
                 inventory[replace] = itemFound;
+                ***/
+                system("cls");
+                ReplaceItem(inventory, itemFound);
                 break;
             case 2:
                 break;
@@ -103,21 +107,37 @@ int main()
     cout << "\nbye\n";
 }
 
-void ReplaceItem(int& replace)
+void ReplaceItem(vector<string>& inventory, string itemFound)
 {
+    /***
     cin >> replace;
+    cout << "\n--- NEW INVENTORY ---\n";
+    ***/
+    vector<string>::iterator iter;
+    int itemChosen = 0;
+    cout << "\nWhich item do you want to replace?\n";
+    DisplayInventory(inventory);
+    cin >> itemChosen;
+    iter = inventory.begin() + itemChosen;
+    *iter = itemFound;
     cout << "\n--- NEW INVENTORY ---\n";
 }
 
 void BuySpace(unsigned int& gems, vector<string>& inventoryBought, string& itemReplace)
 {
     cout << "A new slot costs " << SPACE_COST << " gems!\n";
-    if (gems > SPACE_COST)
+    if (gems >= SPACE_COST)
     {
-        AskYesNo("You can buy a new slot!!\n Do you wish to do so?\n");
-        gems = gems - SPACE_COST;
-        cout << "Congratulations, you bought a new slot!\n";
-        inventoryBought.push_back(itemReplace);
+        if (AskYesNo("You can buy a new slot!!\n Do you wish to do so?\n") == true)
+        {
+            gems -= SPACE_COST;
+            cout << "Congratulations, you bought a new slot!\n";
+            inventoryBought.push_back(itemReplace);
+        }
+        else
+        {
+            return;
+        }
     }
     else
     {
@@ -585,10 +605,41 @@ void vectorsPart1()
 
 int askNumber(string question, int high, int low)
 {
-    int number = 0;
+    string input;
+    bool isValid = false;
+    //int number = 0;
+    bool firstTime = true;
+
     do {
-        cout << question << low << " & " << high << endl;
-        cin >> number;
-    } while (number > high || number < low);
-    return number;
+        if (!firstTime)
+        {
+            cout << question << low << " & " << high << endl;
+        }
+        getline(cin, input);
+
+        for (char character : input)
+        {
+            if (isdigit(character))
+            {
+                isValid = true;
+                break;
+            }
+        }
+
+        if (!isValid)
+        {
+            cout << "\nInvalid Option\nChoose ONLY numbers\n";
+        }
+        else if (input.empty() && firstTime == false)
+        {
+            cout << "\nEmpty option, write something\n";
+        }
+        else if (input.empty() && firstTime == true)
+        {
+            firstTime = false;
+        }
+    } while (!isValid || input.empty());
+    //number > high || number < low
+
+    return stoi(input);
 }
