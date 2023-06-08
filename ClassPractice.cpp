@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <clocale>
 
-
 using namespace std;
 
 int askNumber(string question, int high, int low = 1);
@@ -72,13 +71,11 @@ int main()
             switch (option)
             {
             case 1:
-                /***
-                system("cls");
+               /* system("cls");
                 cout << "What item do you want to replace?\n";
                 DisplayInventory(inventory);
                 ReplaceItem(replace);
-                inventory[replace] = itemFound;
-                ***/
+                inventory[replace] = itemFound;*/
                 system("cls");
                 ReplaceItem(inventory, itemFound);
                 break;
@@ -90,6 +87,7 @@ int main()
                 BuySpace(gems, inventory, itemFound);
                 break;
             default:
+                cout << "Invalid option\n";
                 break;
             }
         }
@@ -109,17 +107,28 @@ int main()
 
 void ReplaceItem(vector<string>& inventory, string itemFound)
 {
-    /***
-    cin >> replace;
-    cout << "\n--- NEW INVENTORY ---\n";
-    ***/
+    //cin >> replace;
+    //cout << "\n--- NEW INVENTORY ---\n";
     vector<string>::iterator iter;
     int itemChosen = 0;
-    cout << "\nWhich item do you want to replace?\n";
-    DisplayInventory(inventory);
-    cin >> itemChosen;
-    iter = inventory.begin() + itemChosen;
-    *iter = itemFound;
+    bool validation = false;
+    do
+    {
+        cout << "\nWhich item do you want to replace?\n";
+        DisplayInventory(inventory);
+        cin >> itemChosen;
+        if (itemChosen <= inventory.size())
+        {
+            iter = inventory.begin() + itemChosen;
+            *iter = itemFound;
+            validation = true;
+        }
+        else
+        {
+            cout << "\nYou do not have that inventory slot\n";
+            validation = false;
+        }
+    } while (!validation);
     cout << "\n--- NEW INVENTORY ---\n";
 }
 
@@ -611,17 +620,18 @@ int askNumber(string question, int high, int low)
     bool firstTime = true;
 
     do {
+        isValid = true;
         if (!firstTime)
-        {
+        { 
             cout << question << low << " & " << high << endl;
         }
         getline(cin, input);
 
         for (char character : input)
         {
-            if (isdigit(character))
+            if (!isdigit(character))
             {
-                isValid = true;
+                isValid = false;
                 break;
             }
         }
