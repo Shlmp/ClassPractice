@@ -32,6 +32,7 @@ bool AskYesNo(string question);
 void ShowMenu();
 void ReplaceItem(vector<string>& inventory, string itemFound);
 void BuySpace(unsigned int& gems, vector<string>& inventoryBought, string& itemReplace);
+void inventorySimulator();
 
 //only constants are global
 const int MAX_ITEMS = 6;
@@ -41,6 +42,85 @@ const int FREE_ITEMS = 3;
 int main()
 {
     std::setlocale(LC_ALL, "es_ES.UTF-8");
+    int score = 1000;
+    int* pScore = &score;
+
+    cout << "Espacio de memoria - " << pScore; //imprime el espacio de memoria
+    cout << "\nValor del espacio de memoria - " << *pScore << endl; //imprime el valor que tiene el espacio de memoria
+
+    //Dirección de memoria
+    cout << &score << endl;
+    cout << pScore << endl;
+
+    //Contenido de la memoria
+    cout << score << endl;
+    cout << *pScore << endl;
+
+
+    score += 500;
+    cout << score << endl;
+    cout << *pScore << endl;
+
+
+    *pScore += 500;
+    cout << score << endl;
+    cout << *pScore << endl;
+
+
+    //NEW SCORE
+    //Apuntar puntero a otro espacio de memoria
+    int newScore = 5000;
+    //Direccion de memoria
+    pScore = &newScore;
+    cout << &newScore << endl;
+    cout << pScore << endl;
+
+    //Contenido de memoria
+    cout << newScore << endl;
+    cout << *pScore << endl;
+
+
+    string str = "score";
+    string* pStr = &str;
+
+    cout << str << endl; //score
+    cout << *pStr << endl; //score
+
+    cout << str.size() << endl; //5
+    cout << (*pStr).size() << endl; //5
+    cout << pStr->size() << endl; //5
+
+    //Constant Pointer
+    int lives = 5;
+    int* const pLives = &lives;
+
+    //NOT VALID
+    //int maxLives = 10;
+    //pLives = &maxLives;
+
+    /**********A CONSTANT TO A POINTER**********/
+
+    //A pointer to a Constant
+    const int* pNumber;
+
+    int defense = 32;
+    pNumber = &defense;
+
+    defense *= 2;
+    cout << defense << endl;
+    cout << *pNumber << endl;
+
+    //NOT VALID
+    //*pNumber *= 2;
+
+
+    /**********CONSTANT POINTER TO A CONSTANT**********/
+    int bonus = 40;
+    const int* const pBonus = &bonus;
+}
+
+void inventorySimulator()
+{
     unsigned int gems = 8;
 
     //Items
@@ -71,11 +151,11 @@ int main()
             switch (option)
             {
             case 1:
-               /* system("cls");
-                cout << "What item do you want to replace?\n";
-                DisplayInventory(inventory);
-                ReplaceItem(replace);
-                inventory[replace] = itemFound;*/
+                /* system("cls");
+                 cout << "What item do you want to replace?\n";
+                 DisplayInventory(inventory);
+                 ReplaceItem(replace);
+                 inventory[replace] = itemFound;*/
                 system("cls");
                 ReplaceItem(inventory, itemFound);
                 break;
